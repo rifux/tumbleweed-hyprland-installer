@@ -179,7 +179,7 @@ _program() {
     _cleanup
     _install_deps
     _fetch_configs
-    _fetch_fonts    # Work in progress
+    _fetch_fonts
     _fetch_cursor   # Work in progress
     _install_cliphist
     _install_ydotool
