@@ -50,9 +50,7 @@ _fetch_fonts() {
     sudo cp -r end4-fonts /usr/local/share/fonts
 }
 
-_fetch_cursor() {
-    # WIP
-}
+#_fetch_cursor() {# WIP}
 
 _install_cliphist() {
     echo "\n[ i ] Installing cliphist"
@@ -170,9 +168,7 @@ _exec_manualinstaller() {
     ./manual-install-helper.sh
 }
 
-_fix_shadows() {
-    # WIP
-}
+#_fix_shadows() {# WIP}
 
 _program() {
     mkdir -p $t
@@ -180,7 +176,7 @@ _program() {
     _install_deps
     _fetch_configs
     _fetch_fonts
-    _fetch_cursor   # Work in progress
+    #_fetch_cursor   # Work in progress
     _install_cliphist
     _install_ydotool
     _install_dartsass
@@ -191,7 +187,7 @@ _program() {
     _install_anyrun
     _install_gradience
     _exec_manualinstaller
-    _fix_shadows    # Work in progress
+    #_fix_shadows    # Work in progress
 }
 
 _program
