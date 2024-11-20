@@ -7,7 +7,7 @@
 #
 
 set -e
-t="$HOME/.cache/opensuse-zypper/"
+t="/tmp/tumbleweed-hyprland-installer"
 c="$HOME/.config/"
 
 _cleanup() {
