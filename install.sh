@@ -7,7 +7,7 @@
 #
 
 set -e
-t="/tmp/tumbleweed-hyprland-installer"
+t="$HOME/.cache/tumbleweed-hyprland-installer"
 c="$HOME/.config/"
 
 _log() {
