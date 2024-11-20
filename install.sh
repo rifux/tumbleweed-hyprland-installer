@@ -171,8 +171,8 @@ _exec_manualinstaller() {
 #_fix_shadows() {# WIP}
 
 _program() {
-    mkdir -p $t
     _cleanup
+    mkdir -p $t
     _install_deps
     _fetch_configs
     _fetch_fonts
