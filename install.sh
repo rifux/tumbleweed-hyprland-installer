@@ -162,7 +162,7 @@ _install_gradience() {
 
 _exec_manualinstaller() {
     echo -e "\n[ ! ] Now manual installer of end-4/dots will be started."
-    read -p "\n[ ? ] Press 'Enter' to continue"
+    read -p "[ ? ] Press 'Enter' to continue"
     cd $t
     cd dots-hyprland
     ./manual-install-helper.sh
