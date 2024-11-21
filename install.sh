@@ -172,6 +172,27 @@ _exec_manualinstaller() {
     ./manual-install-helper.sh
 }
 
+# Temporary workaround for current issue with ags makes itself a strange broken look
+_remove_transparency() {
+    _file="$HOME/.config/ags/modules/sideright/centermodules/configure.js"
+
+    sed -i -e \
+        "s|                        ConfigToggle({|\/\*                        ConfigToggle({|g" \
+        "$_file"
+    sed -i -e \
+        "s|console\.log(transparency)\;|console\.log(transparency)\;\*\/|g" \
+        "$_file"
+    sed -i -e \
+        "s|                                execAsync(|\/\/                                execAsync(|g" \
+        "$_file"
+    sed -i -e \
+        "s|                                    .then(execAsync(|\/\*                                    .then(execAsync(|g" \
+        "$_file"
+    sed -i -e \
+        "s|                        HyprlandToggle({ icon: 'blur_on'|\*\/                        HyprlandToggle({ icon: 'blur_on'|g" \
+        "$_file"
+}
+
 _program() {
     _cleanup
     mkdir -p $t
@@ -189,6 +210,7 @@ _program() {
     _install_anyrun
     _install_gradience
     _exec_manualinstaller
+    _remove_transparency
 }
 
 _program
