@@ -20,8 +20,8 @@ _cleanup() {
     fi
 
     for path in ags anyrun fish/auto-Hypr.fish fish/config.fish fish/fish_variables fontconfig foot fuzzel hypr mpv qt5ct wlogout zshrc.d chrome-flags.conf code-flags.conf starship.toml thorium-flags.conf; do
-        if [ -e "$t/$path" ]; then
-            sudo rm -rf "$t/$path"
+        if [ -e "$c/$path" ]; then
+            sudo rm -rf "$c/$path"
         fi
     done
 }
