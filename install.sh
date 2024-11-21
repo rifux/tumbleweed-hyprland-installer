@@ -172,8 +172,6 @@ _exec_manualinstaller() {
     ./manual-install-helper.sh
 }
 
-#_fix_shadows() {# WIP}
-
 _program() {
     _cleanup
     mkdir -p $t
@@ -191,7 +189,6 @@ _program() {
     _install_anyrun
     _install_gradience
     _exec_manualinstaller
-    #_fix_shadows    # Work in progress
 }
 
 _program
