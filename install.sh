@@ -28,7 +28,7 @@ _cleanup() {
 
 _install_deps() {
     _log "[ i ] Installing dependencies from Tumbleweed repo"
-    sudo zypper in axel blueprint-compiler bluez bluez-auto-enable-devices bluez-cups bluez-firmware brightnessctl cairomm-devel cairomm1_0-devel cargo cmake coreutils curl ddcutil file-devel fish fontconfig foot fuzzel gammastep gdouros-symbola-fonts gjs gjs-devel gnome-bluetooth gnome-bluetooth gnome-bluetooth gnome-control-center gnome-keyring gobject-introspection gobject-introspection-devel gojq grim gtk-layer-shell-devel gtk3 gtk3-metatheme-adwaita gtk4-devel gtkmm3-devel gtksourceview-devel gtksourceviewmm-devel gtksourceviewmm3_0-devel hypridle hyprland hyprlang-devel hyprwayland-scanner jetbrains-mono-fonts kernel-firmware-bluetooth lato-fonts libadwaita-devel libcairomm-1_0-1 libcairomm-1_16-1 libdbusmenu-gtk3-4 libdbusmenu-gtk3-devel libdbusmenu-gtk4 libdrm-devel libgbm-devel libgnome-bluetooth-3_0-13 libgtksourceview-3_0-1 libgtksourceviewmm-3_0-0 libgtksourceviewmm-4_0-0 libjxl-devel libpulse-devel libqt5-qtwayland libsass-3_6_6-1 libsass-devel libsoup-devel libtinyxml0 libtinyxml2-10 libwebp-devel libxdp-devel Mesa-libGLESv2-devel Mesa-libGLESv3-devel meson NetworkManager npm opi pam-devel pavucontrol playerctl polkit-gnome python-base python3-anyascii python3-base python3-build python3-gobject-devel python3-libsass python3-material-color-utilities-python python3-Pillow python3-pip python3-psutil python3-pywayland python3-regex python3-setuptools_scm python3-svglib python3-wheel qt5ct qt6-wayland ripgrep rsync scdoc slurp starship swappy swww systemd-devel tesseract tesseract-data tinyxml-devel tinyxml2-devel typelib-1_0-Xdp-1_0 typelib-1_0-XdpGtk3-1_0 typelib-1_0-XdpGtk4-1_0 typescript unzip upower wayland-protocols-devel webp-pixbuf-loader wf-recorder wget wireplumber wl-clipboard wl-clipboard xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-hyprland xdg-utils xrandr
+    sudo zypper in axel blueprint-compiler bluez bluez-auto-enable-devices bluez-cups bluez-firmware brightnessctl cairomm-devel cairomm1_0-devel cargo cmake coreutils curl ddcutil file-devel fish fontconfig foot fuzzel gammastep gdouros-symbola-fonts gjs gjs-devel gnome-bluetooth gnome-bluetooth gnome-bluetooth gnome-control-center gnome-keyring gobject-introspection gobject-introspection-devel gojq grim gtk-layer-shell-devel gtk3 gtk3-metatheme-adwaita gtk4-devel gtkmm3-devel gtksourceview-devel gtksourceviewmm-devel gtksourceviewmm3_0-devel hypridle hyprland hyprlang-devel hyprwayland-scanner jetbrains-mono-fonts kernel-firmware-bluetooth lato-fonts libadwaita-devel libcairomm-1_0-1 libcairomm-1_16-1 libdbusmenu-gtk3-4 libdbusmenu-gtk3-devel libdbusmenu-gtk4 libdrm-devel libgbm-devel libgnome-bluetooth-3_0-13 libgtksourceview-3_0-1 libgtksourceviewmm-3_0-0 libgtksourceviewmm-4_0-0 libjxl-devel libpulse-devel libqt5-qtwayland libsass-3_6_6-1 libsass-devel libsoup-devel libtinyxml0 libtinyxml2-10 libwebp-devel libxdp-devel Mesa-libGLESv2-devel Mesa-libGLESv3-devel meson NetworkManager npm opi pam-devel pavucontrol playerctl polkit-gnome pugixml-devel python-base python3-anyascii python3-base python3-build python3-gobject-devel python3-libsass python3-material-color-utilities-python python3-Pillow python3-pip python3-psutil python3-pywayland python3-regex python3-setuptools_scm python3-svglib python3-wheel qt5ct qt6-quickcontrols2-devel qt6-wayland qt6-waylandclient-devel qt6-waylandclient-private-devel qt6-widgets-devel ripgrep rsync scdoc slurp starship swappy swww systemd-devel tesseract tesseract-data tinyxml-devel tinyxml2-devel typelib-1_0-Xdp-1_0 typelib-1_0-XdpGtk3-1_0 typelib-1_0-XdpGtk4-1_0 typescript unzip upower wayland-protocols-devel webp-pixbuf-loader wf-recorder wget wireplumber wl-clipboard wl-clipboard xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-hyprland xdg-utils xrandr
 
     _log "[ i ] Installing dependencies from opi"
     _log "[ ! ] Select 'yad' and then 'multimedia_proaudio' or 'Dead_Mozay' repo"
@@ -129,7 +129,18 @@ _install_sdbus_cpp() {
     sudo cmake --build ./build --target install
 }
 
+_install_hyprwayland_scanner() {
+    _log "[ i ] Installing hyprwayland-scanner"
+    cd $t
+    git clone https://github.com/hyprwm/hyprwayland-scanner.git
+    cd hyprwayland-scanner
+    cmake -DCMAKE_INSTALL_PREFIX=/usr -B build
+    cmake --build build -j `nproc`
+    sudo cmake --install build
+}
+
 _install_hyprlock() {
+    _install_hyprwayland_scanner
     _install_sdbus_cpp
     _log "[ i ] Installing hyprlock"
     cd $t
@@ -138,6 +149,25 @@ _install_hyprlock() {
     cmake --no-warn-unused-cli -DCMAKE_CXX_FLAGS="-L/usr/local/lib64 -lsdbus-c++" -DCMAKE_BUILD_TYPE:STRING=Release -S . -B ./build
     cmake --build ./build --config Release --target hyprlock -j`nproc 2>/dev/null || getconf NPROCESSORS_CONF`
     sudo cmake --install build
+}
+
+_install_hyprland_qtutils() {
+    _log "[ i ] Installing hyprland-qtutils"
+    cd $t
+    git clone https://github.com/hyprwm/hyprland-qtutils.git && \
+        cd hyprland-qtutils
+    cmake --no-warn-unused-cli -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=/usr -S . -B ./build
+	cmake --build ./build --config Release --target all -j`nproc 2>/dev/null || getconf NPROCESSORS_CONF`
+	sudo cmake --install build
+}
+
+_install_hyprland() {
+    _log "[ i ] Installing Hyprland"
+    cd $t
+    sudo zypper in gcc-c++ git meson cmake "pkgconfig(cairo)" "pkgconfig(egl)" "pkgconfig(gbm)" "pkgconfig(gl)" "pkgconfig(glesv2)" "pkgconfig(libdrm)" "pkgconfig(libinput)" "pkgconfig(libseat)" "pkgconfig(libudev)" "pkgconfig(pango)" "pkgconfig(pangocairo)" "pkgconfig(pixman-1)" "pkgconfig(vulkan)" "pkgconfig(wayland-client)" "pkgconfig(wayland-protocols)" "pkgconfig(wayland-scanner)" "pkgconfig(wayland-server)" "pkgconfig(xcb)" "pkgconfig(xcb-icccm)" "pkgconfig(xcb-renderutil)" "pkgconfig(xkbcommon)" "pkgconfig(xwayland)" "pkgconfig(xcb-errors)" glslang-devel Mesa-libGLESv3-devel tomlplusplus-devel
+    git clone --recursive https://github.com/hyprwm/Hyprland && \
+        cd Hyprland
+    make all && sudo make install
 }
 
 _install_wlogout() {
@@ -217,6 +247,7 @@ _program() {
     _install_hyprpicker
     _install_hyprgraphics
     _install_hyprlock
+    _install_hyprland_qtutils
     _install_wlogout
     _install_anyrun
     _install_gradience
