@@ -129,7 +129,18 @@ _install_sdbus_cpp() {
     sudo cmake --build ./build --target install
 }
 
+_install_hyprwayland_scanner() {
+    _log "[ i ] Installing hyprwayland-scanner"
+    cd $t
+    git clone https://github.com/hyprwm/hyprwayland-scanner.git
+    cd hyprwayland-scanner
+    cmake -DCMAKE_INSTALL_PREFIX=/usr -B build
+    cmake --build build -j `nproc`
+    sudo cmake --install build
+}
+
 _install_hyprlock() {
+    _install_hyprwayland_scanner
     _install_sdbus_cpp
     _log "[ i ] Installing hyprlock"
     cd $t
