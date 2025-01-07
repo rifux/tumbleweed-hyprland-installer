@@ -151,6 +151,16 @@ _install_hyprlock() {
     sudo cmake --install build
 }
 
+_install_hyprland_qtutils() {
+    _log "[ i ] Installing hyprland-qtutils"
+    cd $t
+    git clone https://github.com/hyprwm/hyprland-qtutils.git && \
+        cd hyprland-qtutils
+    cmake --no-warn-unused-cli -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=/usr -S . -B ./build
+	cmake --build ./build --config Release --target all -j`nproc 2>/dev/null || getconf NPROCESSORS_CONF`
+	sudo cmake --install build
+}
+
 _install_wlogout() {
     _log "[ i ] Installing wlogout"
     cd $t
@@ -228,6 +238,7 @@ _program() {
     _install_hyprpicker
     _install_hyprgraphics
     _install_hyprlock
+    _install_hyprland_qtutils
     _install_wlogout
     _install_anyrun
     _install_gradience
