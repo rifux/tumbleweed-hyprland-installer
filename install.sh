@@ -140,8 +140,6 @@ _install_hyprwayland_scanner() {
 }
 
 _install_hyprlock() {
-    _install_hyprwayland_scanner
-    _install_sdbus_cpp
     _log "[ i ] Installing hyprlock"
     cd $t
     git clone https://github.com/hyprwm/hyprlock.git
@@ -244,6 +242,8 @@ _program() {
     _install_ydotool
     _install_dartsass
     _install_hyprutils
+    _install_hyprwayland_scanner
+    _install_sdbus_cpp
     _install_hyprpicker
     _install_hyprgraphics
     _install_hyprlock
