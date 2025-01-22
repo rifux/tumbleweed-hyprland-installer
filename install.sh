@@ -72,7 +72,7 @@ _install_ydotool() {
         cd ydotool
     mkdir build && cd build
     cmake -DSYSTEMD_USER_SERVICE=OFF -DSYSTEMD_SYSTEM_SERVICE=ON ..
-    make -j `nproc`
+    make -j $(nproc)
     sudo make install
     sudo chmod +s $(which ydotool)
     sudo systemctl daemon-reload
@@ -136,7 +136,7 @@ _install_hyprwayland_scanner() {
     git clone https://github.com/hyprwm/hyprwayland-scanner.git
     cd hyprwayland-scanner
     cmake -DCMAKE_INSTALL_PREFIX=/usr -B build
-    cmake --build build -j `nproc`
+    cmake --build build -j $(nproc)
     sudo cmake --install build
 }
 
