@@ -74,7 +74,7 @@ _install_ydotool() {
     cmake -DSYSTEMD_USER_SERVICE=OFF -DSYSTEMD_SYSTEM_SERVICE=ON ..
     make -j $(nproc)
     sudo make install
-    sudo chmod +s $(which ydotool)
+    sudo chmod +s "$(which ydotool)"
     sudo systemctl daemon-reload
     sudo systemctl enable ydotoold
     sudo systemctl start ydotoold
@@ -186,7 +186,7 @@ _install_anyrun() {
     cd anyrun
     cargo build --release
     cargo install --path anyrun/
-    sudo cp $HOME/.cargo/bin/anyrun /usr/local/bin/
+    sudo cp "$HOME/.cargo/bin/anyrun" /usr/local/bin/
     mkdir -p ~/.config/anyrun/plugins
     cp target/release/*.so ~/.config/anyrun/plugins
     cp examples/config.ron ~/.config/anyrun/config.ron
