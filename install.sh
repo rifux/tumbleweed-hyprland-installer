@@ -15,7 +15,7 @@ _log() {
 }
 
 _cleanup() {
-    if [ -d $t ]; then
+    if [ -d "$t" ]; then
         sudo rm -rf "$t"
     fi
 
@@ -42,7 +42,7 @@ _install_deps() {
 
 _fetch_configs() {
     _log "[ i ] Fetching configs"
-    cd $t
+    cd "$t"
     git clone https://github.com/end-4/dots-hyprland && \
         cd dots-hyprland && \
         cp -r {.config,.local} "$HOME/"
@@ -50,7 +50,7 @@ _fetch_configs() {
 
 _fetch_fonts() {
     _log "[ i ] Fetching fonts"
-    cd $t
+    cd "$t"
     git clone https://codeberg.org/rifux/end4-fonts
     sudo cp -r end4-fonts /usr/local/share/fonts
 }
@@ -59,7 +59,7 @@ _fetch_fonts() {
 
 _install_cliphist() {
     _log "[ i ] Installing cliphist"
-    cd $t
+    cd "$t"
     wget https://github.com/sentriz/cliphist/releases/download/v0.6.1/v0.6.1-linux-amd64 -O cliphist && \
         chmod +x cliphist && \
         sudo cp -v cliphist /usr/local/bin/cliphist
@@ -67,7 +67,7 @@ _install_cliphist() {
 
 _install_ydotool() {
     _log "[ i ] Installing ydotool"
-    cd $t
+    cd "$t"
     git clone https://github.com/ReimuNotMoe/ydotool && \
         cd ydotool
     mkdir build && cd build
@@ -83,7 +83,7 @@ _install_ydotool() {
 
 _install_hyprutils() {
     _log "[ i ] Installing hyprutils"
-    cd $t
+    cd "$t"
     git clone https://github.com/hyprwm/hyprutils.git && \
         cd hyprutils/
     cmake --no-warn-unused-cli -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=/usr -S . -B ./build
@@ -93,7 +93,7 @@ _install_hyprutils() {
 
 _install_hyprpicker() {
     _log "[ i ] Installing hyprpicker"
-    cd $t
+    cd "$t"
     git clone https://github.com/hyprwm/hyprpicker.git && \
         cd hyprpicker
     cmake --no-warn-unused-cli -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=/usr -S . -B ./build
@@ -103,7 +103,7 @@ _install_hyprpicker() {
 
 _install_hyprgraphics() {
 	_log "[ i ] Installing hyprgraphics"
-	cd $t
+	cd "$t"
 	git clone https://github.com/hyprwm/hyprgraphics && \
 	        cd hyprgraphics/
 	cmake --no-warn-unused-cli -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=/usr -S . -B ./build
@@ -113,7 +113,7 @@ _install_hyprgraphics() {
 
 _install_dartsass() {
     _log "[ i ] Installing dart-sass"
-    cd $t
+    cd "$t"
     wget https://github.com/sass/dart-sass/releases/download/1.80.6/dart-sass-1.80.6-linux-x64.tar.gz
     tar -xzf dart-sass-1.80.6-linux-x64.tar.gz
     cd dart-sass
@@ -122,7 +122,7 @@ _install_dartsass() {
 
 _install_sdbus_cpp() {
     _log "[ i ] Installing sdbus-cpp"
-    cd $t
+    cd "$t"
     git clone https://github.com/Kistler-Group/sdbus-cpp.git
     cd sdbus-cpp
     cmake --no-warn-unused-cli -DCMAKE_BUILD_TYPE:STRING=Release -S . -B ./build
@@ -132,7 +132,7 @@ _install_sdbus_cpp() {
 
 _install_hyprwayland_scanner() {
     _log "[ i ] Installing hyprwayland-scanner"
-    cd $t
+    cd "$t"
     git clone https://github.com/hyprwm/hyprwayland-scanner.git
     cd hyprwayland-scanner
     cmake -DCMAKE_INSTALL_PREFIX=/usr -B build
@@ -142,7 +142,7 @@ _install_hyprwayland_scanner() {
 
 _install_hyprlock() {
     _log "[ i ] Installing hyprlock"
-    cd $t
+    cd "$t"
     git clone https://github.com/hyprwm/hyprlock.git
     cd hyprlock
     cmake --no-warn-unused-cli -DCMAKE_CXX_FLAGS="-L/usr/local/lib64 -lsdbus-c++" -DCMAKE_BUILD_TYPE:STRING=Release -S . -B ./build
@@ -152,7 +152,7 @@ _install_hyprlock() {
 
 _install_hyprland_qtutils() {
     _log "[ i ] Installing hyprland-qtutils"
-    cd $t
+    cd "$t"
     git clone https://github.com/hyprwm/hyprland-qtutils.git && \
         cd hyprland-qtutils
     cmake --no-warn-unused-cli -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=/usr -S . -B ./build
@@ -162,7 +162,7 @@ _install_hyprland_qtutils() {
 
 _install_hyprland() {
     _log "[ i ] Installing Hyprland"
-    cd $t
+    cd "$t"
     sudo zypper in gcc-c++ git meson cmake "pkgconfig(cairo)" "pkgconfig(egl)" "pkgconfig(gbm)" "pkgconfig(gl)" "pkgconfig(glesv2)" "pkgconfig(libdrm)" "pkgconfig(libinput)" "pkgconfig(libseat)" "pkgconfig(libudev)" "pkgconfig(pango)" "pkgconfig(pangocairo)" "pkgconfig(pixman-1)" "pkgconfig(vulkan)" "pkgconfig(wayland-client)" "pkgconfig(wayland-protocols)" "pkgconfig(wayland-scanner)" "pkgconfig(wayland-server)" "pkgconfig(xcb)" "pkgconfig(xcb-icccm)" "pkgconfig(xcb-renderutil)" "pkgconfig(xkbcommon)" "pkgconfig(xwayland)" "pkgconfig(xcb-errors)" glslang-devel Mesa-libGLESv3-devel tomlplusplus-devel
     git clone --recursive https://github.com/hyprwm/Hyprland && \
         cd Hyprland
@@ -171,7 +171,7 @@ _install_hyprland() {
 
 _install_wlogout() {
     _log "[ i ] Installing wlogout"
-    cd $t
+    cd "$t"
     git clone https://github.com/ArtsyMacaw/wlogout.git
     cd wlogout
     meson build
@@ -181,7 +181,7 @@ _install_wlogout() {
 
 _install_anyrun() {
     _log "[ i ] Installing anyrun"
-    cd $t
+    cd "$t"
     git clone https://github.com/Kirottu/anyrun.git
     cd anyrun
     cargo build --release
@@ -194,7 +194,7 @@ _install_anyrun() {
 
 _install_gradience() {
     _log "[ i ] Installing gradience"
-    cd $t
+    cd "$t"
     git clone https://github.com/GradienceTeam/Gradience.git
     cd Gradience
     git submodule update --init --recursive
@@ -206,7 +206,7 @@ _install_gradience() {
 _exec_manualinstaller() {
     _log "[ ! ] Now manual installer of end-4/dots will be started."
     read -p "[ ? ] Press 'Enter' to continue"
-    cd $t
+    cd "$t"
     cd dots-hyprland
     ./manual-install-helper.sh
 }
@@ -234,7 +234,7 @@ _remove_transparency() {
 
 _program() {
     _cleanup
-    mkdir -p $t
+    mkdir -p "$t"
     _install_deps
     _fetch_configs
     _fetch_fonts
